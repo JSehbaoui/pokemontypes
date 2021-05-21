@@ -37,6 +37,9 @@ def main():
     # tileproperties
     Pokedex_tile_pos  = (0,0)
     Pokedex_tile_size = (600, 400)
+
+    #fonts
+    poke_font_path = r"components/fonts/Pokemon Solid.ttf"
     #----------------------------------------------------------
 
     # CREATING THE WINDOW--------------------------------------
@@ -57,6 +60,9 @@ def main():
                         color_b = crimson_red,
                         color_t = black,
                         command= print_I_work,
+                        font_size = 70,
+                        font = poke_font_path,
+                        text = "PokeDex",
                         anchor_point_x=outer_border,
                         anchor_point_y=outer_border
                                                 )

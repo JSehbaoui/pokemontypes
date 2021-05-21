@@ -3,7 +3,7 @@ pygame.init()
 
 class Tile:
     
-    def __init__(self, x, y, w, h, color_b, color_t, command, font_size = 20, text = 'Button', anchor_point_x = 0, anchor_point_y = 0, icon = None, deaf = True):
+    def __init__(self, x, y, w, h, color_b, color_t, command, font_size = 20, font = None, text = 'Button', anchor_point_x = 0, anchor_point_y = 0, icon = None):
         self.x = x
         self.y = y
         self.w = w
@@ -12,7 +12,7 @@ class Tile:
         self.color_b = color_b
         self.color_t = color_t
         self.text = text
-        self.font = pygame.font.Font(None, font_size)
+        self.font = pygame.font.Font(font, font_size)
         self.command = command
         self.anch_x = anchor_point_x
         self.anch_y = anchor_point_y
