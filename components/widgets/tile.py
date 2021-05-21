@@ -1,5 +1,8 @@
 import pygame
+import math
 pygame.init()
+
+from components.widgets.corner import Polygon
 
 class Tile:
     
@@ -36,7 +39,33 @@ class Tile:
         mouse_pos = mouse_pos[0]-self.anch_x, mouse_pos[1]-self.anch_y
 
         if self.button_rect.collidepoint(mouse_pos):
-            self.command()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                self.command()
+        
+    def check_for_animation(self, screen):
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = mouse_pos[0]-self.anch_x, mouse_pos[1]-self.anch_y
+        self.hover_animation(is_hovered=self.button_rect.collidepoint(mouse_pos), screen=screen)
+
+    def hover_animation(self, is_hovered, screen):
+        if is_hovered:
+            left_top = Polygon(0, 50, (255, 255, 255), (self.x, self.y))
+            left_bot = Polygon(90, 50, (255, 255, 255), (self.x, self.y+self.h))
+            right_top = Polygon(270, 50, (255, 255, 255), (self.x+self.w, self.y))
+            right_bot = Polygon(180, 50, (255, 255, 255), (self.x+self.w, self.y+self.h))
+            
+            corners = [left_top, left_bot, right_top, right_bot]
+
+            screen.fill((0,0,0))
+            self.draw(screen=screen)
+            for corner in corners:
+                corner.draw(screen)
+
+
+    
+
+            
+
             
 def printHello():
     print("hello")

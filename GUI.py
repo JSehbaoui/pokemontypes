@@ -75,12 +75,18 @@ def main():
         # frames per second
         clock.tick(tick)
 
+        
+
         # drawing all tiles
         for tile in tiles:
             tile.draw(surface)
+            tile.check_for_animation(screen=surface)
 
         # checking for events
         for event in pygame.event.get():
+
+            for tile in tiles:
+                tile.processEvent(event)
             # killing the mainloop and therefore closing the window
             if event.type == pygame.QUIT:
                 go = False
@@ -93,8 +99,7 @@ def main():
 
             # Left-Mousebutton Inputs
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                for tile in tiles:
-                    tile.processEvent(event)
+                pass
         
         # blitting the content from the window on the window
         window.blit(surface, (outer_border, outer_border) )
