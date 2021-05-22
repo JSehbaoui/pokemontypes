@@ -5,7 +5,9 @@ pygame.init()
 from components.widgets.corner import Polygon
 
 class Tile:
-    
+
+    all_tiles = []
+
     def __init__(self, x, y, w, h, color_b, color_t, command, font_size = 20, font = None, text = 'Button', anchor_point_x = 0, anchor_point_y = 0, icon = None):
         self.x = x
         self.y = y
@@ -20,6 +22,8 @@ class Tile:
         self.anch_x = anchor_point_x
         self.anch_y = anchor_point_y
         self.icon = icon
+        self.last_pos = 0
+        Tile.all_tiles.append(self)
 
 
     def draw(self, screen):
@@ -42,30 +46,32 @@ class Tile:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 self.command()
         
-    def check_for_animation(self, screen):
+    def check_for_animation(self, screen, bg_color):
         mouse_pos = pygame.mouse.get_pos()
         mouse_pos = mouse_pos[0]-self.anch_x, mouse_pos[1]-self.anch_y
-        self.hover_animation(is_hovered=self.button_rect.collidepoint(mouse_pos), screen=screen)
+        if self.button_rect.collidepoint(mouse_pos):
+            self.hover_animation(screen=screen, bg_color=bg_color)
+        else:
+            self.last_pos = 0
 
-    def hover_animation(self, is_hovered, screen):
-        if is_hovered:
-            left_top = Polygon(0, 50, (255, 255, 255), (self.x, self.y))
-            left_bot = Polygon(90, 50, (255, 255, 255), (self.x, self.y+self.h))
-            right_top = Polygon(270, 50, (255, 255, 255), (self.x+self.w, self.y))
-            right_bot = Polygon(180, 50, (255, 255, 255), (self.x+self.w, self.y+self.h))
-            
-            corners = [left_top, left_bot, right_top, right_bot]
+    def hover_animation(self, screen ,bg_color):
+        
+        print(self.text, 'is animating')
+        pos_add = math.sin(math.radians(self.last_pos))*10-30
 
-            screen.fill((0,0,0))
-            self.draw(screen=screen)
-            for corner in corners:
-                corner.draw(screen)
+        corners = [ Polygon(0, 50, (255, 255, 255),         (pos_add+self.x,        pos_add+self.y)),
+                    Polygon(90, 50, (255, 255, 255),        (pos_add+self.x,        self.y+self.h-pos_add)),
+                    Polygon(270, 50, (255, 255, 255),       (self.x+self.w-pos_add, pos_add+self.y)),
+                    Polygon(180, 50, (255, 255, 255),       (self.x+self.w-pos_add, self.y+self.h-pos_add))]
 
+        screen.fill(bg_color)
+        for tile in self.all_tiles:
+            tile.draw(screen)
+        for corner in corners:
+            corner.draw(screen)
 
-    
-
-            
-
+        self.last_pos += 5
+        
             
 def printHello():
     print("hello")
@@ -87,7 +93,6 @@ def main():
         screen.fill((255, 255, 255))
 
         Button1.draw(screen)
-
 
         pygame.display.flip()
         clock.tick(30)

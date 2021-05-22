@@ -35,8 +35,14 @@ def main():
     go = True
 
     # tileproperties
-    Pokedex_tile_pos  = (0,0)
+    Pokedex_tile_pos  = (50,50)
     Pokedex_tile_size = (600, 400)
+
+    AttDex_tile_pos = (700, 50)
+    AttDex_tile_size = (490, 100)
+
+    AbilityDex_tile_pos = (700,200)
+    AbilityDex_tile_size = (490, 100)
 
     #fonts
     poke_font_path = r"components/fonts/Pokemon Solid.ttf"
@@ -49,11 +55,12 @@ def main():
     #----------------------------------------------------------
 
     #CREATING THE SURFACE FOR CONTENTS-------------------------
-    surface = pygame.Surface((WIDTH-2*outer_border, HEIGHT-2*outer_border))
+    surface = pygame.Surface((WIDTH, HEIGHT))
+    surface.fill(grass_green)
     #----------------------------------------------------------
 
     # DEFINING THE MAIN TILES----------------------------------
-    Pokedex_tile = Tile(x = Pokedex_tile_pos[0],
+    PokeDex_tile = Tile(x = Pokedex_tile_pos[0],
                         y = Pokedex_tile_pos[1],
                         w = Pokedex_tile_size[0],
                         h = Pokedex_tile_size[1],
@@ -62,12 +69,31 @@ def main():
                         command= print_I_work,
                         font_size = 70,
                         font = poke_font_path,
-                        text = "PokeDex",
-                        anchor_point_x=outer_border,
-                        anchor_point_y=outer_border
+                        text = "PokeDex"
                                                 )
 
-    tiles = [Pokedex_tile]
+    AttDex_tile = Tile( x = AttDex_tile_pos[0],
+                        y = AttDex_tile_pos[1],
+                        w = AttDex_tile_size[0],
+                        h = AttDex_tile_size[1],
+                        color_b = crimson_red,
+                        color_t=black,
+                        command=print_I_work,
+                        font_size=70,
+                        font = poke_font_path,
+                        text = "AttackenDex"
+    )
+
+    AbilityDex_tile = Tile(  x = AbilityDex_tile_pos[0],
+                        y = AbilityDex_tile_pos[1],
+                        w = AbilityDex_tile_size[0],
+                        h = AbilityDex_tile_size[1],
+                        color_b = crimson_red,
+                        color_t= black,
+                        command = print_I_work,
+                        font_size=70,
+                        font = poke_font_path, 
+                        text = "AbilityDex")
     #----------------------------------------------------------
 
     # mainloop
@@ -75,17 +101,16 @@ def main():
         # frames per second
         clock.tick(tick)
 
-        
-
         # drawing all tiles
-        for tile in tiles:
+        surface.fill(grass_green)
+        for tile in Tile.all_tiles:
             tile.draw(surface)
-            tile.check_for_animation(screen=surface)
+            tile.check_for_animation(screen=surface, bg_color=grass_green)
 
         # checking for events
         for event in pygame.event.get():
 
-            for tile in tiles:
+            for tile in Tile.all_tiles:
                 tile.processEvent(event)
             # killing the mainloop and therefore closing the window
             if event.type == pygame.QUIT:
@@ -102,7 +127,7 @@ def main():
                 pass
         
         # blitting the content from the window on the window
-        window.blit(surface, (outer_border, outer_border) )
+        window.blit(surface, (0,0))
 
         # refreshing the window
         pygame.display.flip()
