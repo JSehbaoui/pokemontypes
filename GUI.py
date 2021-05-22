@@ -44,6 +44,20 @@ def main():
     AbilityDex_tile_pos = (700,200)
     AbilityDex_tile_size = (490, 100)
 
+    TypenDex_tile_pos = (700, 350)
+    TypenDex_tile_size = (490, 100)
+    
+    TeamBuilder_tile_pos = (50, 500)
+    TeamBuilder_tile_size = (600, 100)
+    
+    TeamAuswahl_tile_pos = (700, 500)
+    TeamAuswahl_tile_size = (340, 100)
+    
+    Shutdown_tile_pos = (1090, 500)
+    Shutdown_tile_size = (100, 100)
+    Shutdown_tile_icon = pygame.image.load(r'assets/bilder/icons/quit.png')
+
+
     #fonts
     poke_font_path = r"components/fonts/Pokemon Solid.ttf"
     #----------------------------------------------------------
@@ -79,7 +93,7 @@ def main():
                         color_b = crimson_red,
                         color_t=black,
                         command=print_I_work,
-                        font_size=70,
+                        font_size=40,
                         font = poke_font_path,
                         text = "AttackenDex"
     )
@@ -91,9 +105,55 @@ def main():
                         color_b = crimson_red,
                         color_t= black,
                         command = print_I_work,
-                        font_size=70,
+                        font_size=40,
                         font = poke_font_path, 
                         text = "AbilityDex")
+
+    TypenDex_tile = Tile(x = TypenDex_tile_pos[0],
+                        y = TypenDex_tile_pos[1],
+                        w = TypenDex_tile_size[0],
+                        h = TypenDex_tile_size[1],
+                        color_b = crimson_red,
+                        color_t= black,
+                        command = print_I_work,
+                        font_size=40,
+                        font = poke_font_path, 
+                        text = "TypenDex")
+
+    TeamBuilder_tile = Tile(x = TeamBuilder_tile_pos[0],
+                        y = TeamBuilder_tile_pos[1],
+                        w = TeamBuilder_tile_size[0],
+                        h = TeamBuilder_tile_size[1],
+                        color_b = crimson_red,
+                        color_t= black,
+                        command = print_I_work,
+                        font_size=40,
+                        font = poke_font_path, 
+                        text = "TeamBuilder")
+
+    TeamAuswahl_tile = Tile(x = TeamAuswahl_tile_pos[0],
+                        y = TeamAuswahl_tile_pos[1],
+                        w = TeamAuswahl_tile_size[0],
+                        h = TeamAuswahl_tile_size[1],
+                        color_b = crimson_red,
+                        color_t= black,
+                        command = print_I_work,
+                        font_size=40,
+                        font = poke_font_path, 
+                        text = "TeamAuswahl")
+
+    Shutdown_tile = Tile(x = Shutdown_tile_pos[0],
+                        y = Shutdown_tile_pos[1],
+                        w = Shutdown_tile_size[0],
+                        h = Shutdown_tile_size[1],
+                        color_b = crimson_red,
+                        color_t= black,
+                        command = quit,
+                        font_size=40,
+                        font = poke_font_path, 
+                        icon=Shutdown_tile_icon)
+
+    
     #----------------------------------------------------------
 
     # mainloop

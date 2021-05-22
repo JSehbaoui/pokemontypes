@@ -55,8 +55,7 @@ class Tile:
             self.last_pos = 0
 
     def hover_animation(self, screen ,bg_color):
-        
-        print(self.text, 'is animating')
+
         pos_add = math.sin(math.radians(self.last_pos))*10-30
 
         corners = [ Polygon(0, 50, (255, 255, 255),         (pos_add+self.x,        pos_add+self.y)),
